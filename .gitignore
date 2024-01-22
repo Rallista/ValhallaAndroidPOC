@@ -9,7 +9,14 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+/protoc
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+
+.vscode/
+
+libvalhalla_wrapper.so
+libvalhalla_wrapper.a
+libvalhalla.a
