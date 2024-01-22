@@ -1,9 +1,9 @@
 package com.valhalla.valhalla
 
-public class ValhallaActor {
+public class ValhallaKotlin {
     companion object {
         init {
-            System.loadLibrary("valhalla")
+            System.loadLibrary("valhalla_wrapper")
         }
     }
 

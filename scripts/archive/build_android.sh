@@ -21,8 +21,14 @@ export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/darwin-x86_64
 # TODO: Loop over all the ABIs & build them in named directories OR just make these an argument to the script
 export ABI=$1
 
-export TARGET=armv7a-linux-androideabi
-export API=28
+# Throw an error if no ABI is specified
+if [ -z "$ABI" ]; then
+    echo "Error: No ABI specified. Please specify an ABI as the first argument. (e.g. arm64-v8a, armeabi-v7a, x86, x86_64)"
+    exit 1
+fi
+
+# export TARGET=armv7a-linux-androideabi
+export ANDROID_PLATFORM=android-28
 
 # Toolchain binaries
 export AR=$TOOLCHAIN/bin/llvm-ar
@@ -62,17 +68,24 @@ mkdir -p $BUILD_DIR/valhalla && cd $BUILD_DIR/valhalla
 # source ./protocenable.sh
 #echo $CMAKE_MAKE_PROGRAM
 
+# -DENABLE_STATIC_LIBRARY_MODULES=ON \
 pwd
 conan install $VALHALLA_DIR
 cmake \
-    -DCMAKE_BUILD_TYPE=Release -DENABLE_TOOLS=Off -DENABLE_DATA_TOOLS=Off -DENABLE_PYTHON_BINDINGS=Off -DENABLE_NODE_BINDINGS=Off -DENABLE_HTTP=Off -DENABLE_SERVICES=Off \
-    -DANDROID_ABI=$ABI -DANDROID_PLATFORM=android-$API \
-    -DProtobuf_INCLUDE_DIR=$PROTOBUF_DIR/protobuf-install/include -DProtobuf_LIBRARY=$PROTOBUF_DIR/protobuf-install/lib/libprotobuf.a \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DENABLE_TOOLS=OFF -DENABLE_DATA_TOOLS=OFF \
+    -DENABLE_PYTHON_BINDINGS=OFF -DENABLE_NODE_BINDINGS=OFF -DENABLE_HTTP=OFF -DENABLE_SERVICES=OFF \
+    -DENABLE_TESTS=OFF -DENABLE_BENCHMARKS=OFF \
+    -DENABLE_STATIC_LIBRARY_MODULES=ON \
+    -DANDROID_ABI=$ABI \
+    -DANDROID_PLATFORM=$ANDROID_PLATFORM \
+    -DProtobuf_INCLUDE_DIR=$PROTOBUF_DIR/protobuf-install/include \
+    -DProtobuf_LIBRARY=$PROTOBUF_DIR/protobuf-install/lib/libprotobuf.a \
     -DProtobuf_PROTOC_EXECUTABLE=$PROTOBUF_DIR/protobuf-install/bin/protoc \
     -DCMAKE_TOOLCHAIN_FILE=$NDK/build/cmake/android.toolchain.cmake \
+    
     -S $VALHALLA_DIR \
     -B .
-    # -DCMAKE_PREFIX_PATH=$BOOST_DIR \
 
 make -j$(nproc)
 cd ..

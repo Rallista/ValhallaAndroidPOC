@@ -6,12 +6,8 @@
 git submodule update --init --recursive
 
 # Build 
-./build_protoc.sh
-./build_android.sh armeabi-v7a
-./build_android.sh arm64-v8a
-./build_android.sh x86
-./build_android.sh x86_64
-./combine_libs.sh # Fails with `ld: archive member '/' not a mach-o file`
+./build_protoc_local.sh
+./build_wrapper.sh
 ```
 
 ## "Valhalla Min" Requirements for Mobile Routing
@@ -43,3 +39,4 @@ This is a guestimate list (this was pulled from my swift package)
  
 * https://github.com/valhalla/valhalla/issues/4131
 * https://stackoverflow.com/questions/69730296/libvalhalla-cmake-link-static-library-android
+* https://github.com/protocolbuffers/protobuf/issues/11671
