@@ -8,32 +8,19 @@ git submodule update --init --recursive
 # Build 
 ./build_protoc_local.sh
 ./build_wrapper.sh
+
+# Move the wrapper library to the right location for JNI
+cp build/arm64-v8a/wrapper/wrapper/libvalhalla_wrapper.so valhalla/src/main/jniLibs/arm64-v8a
 ```
 
-## "Valhalla Min" Requirements for Mobile Routing
+## Using the demo app
 
-This is a guestimate list (this was pulled from my swift package)
+1. Copy your valhalla.json, tiles tar file and admins.sqlite to the `valhalla/src/main/assets` to use the defualt FileUtils behavior. See
 
-* `src/baldr`
-* `src/loki`
-* `src/meili`
-* `src/midgard`
-* `src/odin`
-* `src/proto`
-* `src/sif`
-* `src/skadi`
-* `src/thor`
-* `src/tyr`
-* `src/proto_conversions.cc`
-* `src/worker.cc`
-* `src/filesystem.cc`
+![Asset Examples](docs/assets-example.png)
 
-### TODO
-
-- [ ] Handle NDKs on different platforms (linux, windows)?
-- [ ] Build all android archs (armeabi-v7a, arm64-v8a, x86, x86_64)
-- [ ] Combine libvalhalla into single libvalhalla.so?
-- [ ] All the JNI stuff... OR figure out how to autogenerate the JNI definitions?
+2. Ensure the route request includes lat-longs within your tile's bounding box.
+3. Tap make route.
 
 ### References
  

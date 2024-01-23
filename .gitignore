@@ -20,3 +20,5 @@ local.properties
 libvalhalla_wrapper.so
 libvalhalla_wrapper.a
 libvalhalla.a
+
+valhalla/src/main/assets

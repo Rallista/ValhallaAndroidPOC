@@ -21,5 +21,5 @@ std::string ValhallaActor::route(const std::string& request, const std::string& 
     // Produce the route result
     std::string result = actor.route(req);
     
-    return request;
+    return result;
 }
