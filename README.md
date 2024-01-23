@@ -17,7 +17,7 @@ cp build/arm64-v8a/wrapper/wrapper/libvalhalla_wrapper.so valhalla/src/main/jniL
 
 1. Copy your valhalla.json, tiles tar file and admins.sqlite to the `valhalla/src/main/assets` to use the defualt FileUtils behavior. See
 
-![Asset Examples](docs/assets-example.png)
+<img src="docs/assets-example.png" width="250" />
 
 2. Ensure the route request includes lat-longs within your tile's bounding box.
 3. Tap make route.
