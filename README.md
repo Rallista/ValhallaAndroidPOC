@@ -1,5 +1,8 @@
 # Valhalla Mobile Build POC
 
+> [!IMPORTANT]  
+> Archived! https://github.com/Rallista/valhalla-mobile publishes all of this functionality as an android library.
+
 ## Setup
 
 ```sh
